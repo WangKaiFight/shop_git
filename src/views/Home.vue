@@ -19,23 +19,30 @@
             <el-radio-button :label="false">展开</el-radio-button>
             <el-radio-button :label="true">收起</el-radio-button>
           </el-radio-group>
+
           <el-menu default-active="1-1"
-                   @open="handleOpen"
                    background-color="#373d41"
                    text-color="#fff"
-                   @close="handleClose"
+                   :unique-opened="true"
                    :collapse="isCollapse"
                    :collapse-transition="false">
-            <el-submenu :index="index+1+''"
-                        v-for="(menu,index) in menuList"
+            <el-submenu :index="menu.id+''"
+                        v-for="menu in menuList"
                         :key="menu.id">
+              
               <template slot="title">
-                <i class="el-icon-location"></i>
+                <i :class="iconsObj.menu.id"></i>
                 <span slot="title">{{menu.authName}}</span>
               </template>
-                <el-menu-item :index="index+1+''" 
-                              v-for="(subMenu,index) in menu.children"
-                              :key="subMenu.id">{{subMenu.authName}}</el-menu-item>
+              
+              <el-menu-item :index="subMenu.id+''"
+                          v-for="subMenu in menu.children"
+                          :key="subMenu.id">
+                
+                <template slot="title">
+                <i class="el-icon-location"></i>
+                <span slot="title">{{subMenu.authName}}</span>
+              </el-submenu> 
             </el-submenu>
           </el-menu>
         </el-aside>
@@ -51,7 +58,16 @@ export default {
   data () {
     return {
       isCollapse: false,
-      menuList: []
+      menuList: [],
+
+      // 左侧导航栏的菜单图标
+      iconsObj:{
+        125: 'el-icon-user',
+        103: 'el-icon-unlock',
+        101: 'el-icon-s-goods',
+        102: 'el-icon-s-order',
+        145: 'el-icon-s-data'
+      }
     }
   },
   async created () {
