@@ -16,7 +16,31 @@ const routes = [
   {
     path: '/home',
     name: 'Home',
-    component: () => import('@/views/Home.vue')
+    component: () => import('@/views/Home.vue'),
+
+    // 二级路由或者子路由的设置
+    children: [
+      {
+        path: "/home",
+        redirect: "/welcome"
+      },
+      {
+        path: "/welcome",
+        component: () => import('@/views/Welcome.vue')
+      },
+      {
+        path: "/users",
+        component: () => import('@/components/Users')
+      },
+      {
+        path: "/rights",
+        component: () => import('@/components/Privlige')
+      },
+      {
+        path: "/roles",
+        component: () => import('@/components/Privlige/role.vue')
+      }
+    ]
   }
 ]
 

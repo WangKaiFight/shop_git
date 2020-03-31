@@ -8,6 +8,8 @@ import axios from 'axios'
 
 Vue.config.productionTip = false
 
+axios.default.baseURL = '/api/private/v1/'
+
 // axios配置请求拦截器
 axios.interceptors.request.use(config => {
   config.headers.Authorization = window.sessionStorage.getItem('token')

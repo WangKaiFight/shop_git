@@ -20,31 +20,32 @@
             <el-radio-button :label="true">收起</el-radio-button>
           </el-radio-group>
 
-          <el-menu default-active="1-1"
+          <el-menu :default-active="activeItem"
                    background-color="#373d41"
                    text-color="#fff"
                    :unique-opened="true"
                    :collapse="isCollapse"
+                   :router="true"
                    :collapse-transition="false">
-            <el-submenu :index="menu.id+''"
+            <el-submenu :index="'/'+menu.path"
                         v-for="menu in menuList"
                         :key="menu.id">
-              
               <template slot="title">
-                <i :class="iconsObj.menu.id"></i>
+                <i :class="iconsObj[menu.id]"></i>
                 <span slot="title">{{menu.authName}}</span>
               </template>
-              
-              <el-menu-item :index="subMenu.id+''"
+              <el-menu-item :index="'/'+subMenu.path"
                           v-for="subMenu in menu.children"
-                          :key="subMenu.id">
-                
+                          :key="subMenu.id"
+                          @click="saveactiveItem('/'+subMenu.path)">
                 <template slot="title">
-                <i class="el-icon-location"></i>
-                <span slot="title">{{subMenu.authName}}</span>
-              </el-submenu> 
+                  <i class="el-icon-location"></i>
+                  <span slot="title">{{subMenu.authName}}</span>
+                </template>
+              </el-menu-item>
             </el-submenu>
           </el-menu>
+
         </el-aside>
         <el-main>Main</el-main>
       </el-container>
@@ -67,7 +68,9 @@ export default {
         101: 'el-icon-s-goods',
         102: 'el-icon-s-order',
         145: 'el-icon-s-data'
-      }
+      },
+
+      activeItem:"/users"
     }
   },
   async created () {
@@ -77,11 +80,18 @@ export default {
       return
     }
     this.menuList = res.data
+    this.activeItem = window.sessionStorage.getItem('activeItem')
+    if(!this.activeItem){
+      this.activeItem = '/users'
+    }
   },
   methods: {
     logout () {
       window.sessionStorage.clear()
       this.$router.push('/login')
+    },
+    saveactiveItem(item){
+        window.sessionStorage.setItem("activeItem",item)
     }
   }
 }
