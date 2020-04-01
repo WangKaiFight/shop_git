@@ -61,14 +61,13 @@
       page-sizes 设置每页显示的条数
       total 总计路数
      -->
-  <el-pagination
-      @size-change="handleSizeChange"
-      @current-change="handleCurrentChange"
-      :current-page="queryParams.pagenum"
-      :page-sizes="[1, 2, 3, 4]"
-      :page-size="queryParams.pagesize"
-      layout="total, sizes, prev, pager, next, jumper"
-      :total="total">
+  <el-pagination @size-change="handleSizeChange"
+                @current-change="handleCurrentChange"
+                :current-page="queryParams.pagenum"
+                :page-sizes="[1, 2, 3, 4]"
+                :page-size="queryParams.pagesize"
+                layout="total, sizes, prev, pager, next, jumper"
+                :total="total">
     </el-pagination>
  </div>
 </template>
@@ -116,4 +115,4 @@ export default {
     margin-top: 15px;
     margin-bottom: 15px;
   }
-</style>1
+</style>

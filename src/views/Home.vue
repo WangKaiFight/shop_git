@@ -45,9 +45,10 @@
               </el-menu-item>
             </el-submenu>
           </el-menu>
-
         </el-aside>
-        <el-main>Main</el-main>
+        <el-main>
+          <router-view></router-view>
+        </el-main>
       </el-container>
     </el-container>
   </div>
@@ -70,11 +71,11 @@ export default {
         145: 'el-icon-s-data'
       },
 
-      activeItem:"/users"
+      activeItem: ''
     }
   },
   async created () {
-    const { data: res } = this.$http.get('/api/private/v1/menus')
+    const { data: res } = await this.$http.get('/menus')
     if (res.meta.status !== 200) {
       this.$msg.error(res.meta.msg)
       return
@@ -91,7 +92,7 @@ export default {
       this.$router.push('/login')
     },
     saveactiveItem(item){
-        window.sessionStorage.setItem("activeItem",item)
+        window.sessionStorage.setItem('activeItem',item)
     }
   }
 }

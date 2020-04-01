@@ -21,23 +21,23 @@ const routes = [
     // 二级路由或者子路由的设置
     children: [
       {
-        path: "/home",
-        redirect: "/welcome"
+        path: '/home',
+        redirect: '/welcome'
       },
       {
-        path: "/welcome",
+        path: '/welcome',
         component: () => import('@/views/Welcome.vue')
       },
       {
-        path: "/users",
+        path: '/users',
         component: () => import('@/components/Users')
       },
       {
-        path: "/rights",
+        path: '/rights',
         component: () => import('@/components/Privlige')
       },
       {
-        path: "/roles",
+        path: '/roles',
         component: () => import('@/components/Privlige/role.vue')
       }
     ]
